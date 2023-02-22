@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2aplha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: dmb04/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'stc/**/*.ts'
+            dest: .
